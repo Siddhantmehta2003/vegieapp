@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:vegieapp/inprogresspage.dart';
 import 'package:vegieapp/profilepage.dart';
 
 class Orderpage extends StatefulWidget {
@@ -67,87 +68,101 @@ class _OrderpageState extends State<Orderpage>
         ),
       ),
       drawer: const Drawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: const [
-                    Text(
-                      'Order no #1190',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: Image.asset(
-                  "assets/Photo.jpeg",
-                ),
-                title: const Text(
-                  'Siddhant Mehta',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: const Text('Delhi NCR'),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: const [
-                    Text(
-                      'Deliver it by Nov,1 2021',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Reject',
-                          style: TextStyle(color: Colors.green),
-                        ),
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  side: const BorderSide(
-                                      color: Colors.green, width: 1))),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Card(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Order no #1190',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        child: const Text('Accept',
-                            style: TextStyle(color: Colors.white)),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.green),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0))),
+                      ListTile(
+                        leading: Image.asset(
+                          "assets/Photo.jpeg",
+                        ),
+                        title: const Text(
+                          'Siddhant Mehta',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: const Text('Delhi NCR'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Deliver it by Nov,1 2021',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Reject',
+                                  style: TextStyle(color: Colors.green),
+                                ),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          side: const BorderSide(
+                                              color: Colors.green, width: 1))),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                child: const Text('Accept',
+                                    style: TextStyle(color: Colors.white)),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.green),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0))),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
+          const Inprogress(),
+          const Profilepage(),
+        ],
       ),
     );
   }
