@@ -42,28 +42,10 @@ class _AdditemState extends State<Additem> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: DropdownButton(
-              icon: const Icon(Icons.expand_more),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.green),
-              underline: Container(
-                height: 2,
-                color: Colors.green,
-              ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  // TODO : Add display state text
-                });
-              },
-              items: <String>['One', 'Two', 'Free', 'Four']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+          child: ListTile(
+            title: Text(
+              'Name',
+              style: TextStyle(fontSize: 18),
             ),
           ),
         ));

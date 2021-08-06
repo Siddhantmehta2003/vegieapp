@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:vegieapp/completedpage.dart';
 import 'package:vegieapp/inprogresspage.dart';
 import 'package:vegieapp/profilepage.dart';
 
@@ -120,7 +121,33 @@ class _OrderpageState extends State<Orderpage>
                           children: [
                             Expanded(
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                            'You have rejected the order!'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'OK!',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all<
+                                                        Color>(Colors.green),
+                                              ))
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                                 child: const Text(
                                   'Reject',
                                   style: TextStyle(color: Colors.green),
@@ -137,7 +164,33 @@ class _OrderpageState extends State<Orderpage>
                             ),
                             Expanded(
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                            'You have accepted the order!!'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'OK!',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all<
+                                                        Color>(Colors.green),
+                                              ))
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                                 child: const Text('Accept',
                                     style: TextStyle(color: Colors.white)),
                                 style: ButtonStyle(
@@ -161,7 +214,7 @@ class _OrderpageState extends State<Orderpage>
             ),
           ),
           const Inprogress(),
-          const Profilepage(),
+          const Completedpage(),
         ],
       ),
     );
