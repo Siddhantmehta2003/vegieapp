@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vegieapp/orderpage.dart';
-import 'package:vegieapp/registrationpage.dart';
+import 'package:vegieapp/pages/loginpage.dart';
+import 'package:vegieapp/pages/orderpage.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({Key? key}) : super(key: key);
@@ -70,10 +70,8 @@ class _ProfilepageState extends State<Profilepage> {
                 Expanded(
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => registerpage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Loginpage()));
                     },
                     icon: const Icon(
                       Icons.logout,

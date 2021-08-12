@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:vegieapp/additem.dart';
 
-class Inprogress extends StatefulWidget {
-  const Inprogress({Key? key}) : super(key: key);
+class Completedpage extends StatefulWidget {
+  const Completedpage({Key? key}) : super(key: key);
 
   @override
-  _InprogressState createState() => _InprogressState();
+  _CompletedpageState createState() => _CompletedpageState();
 }
 
-class _InprogressState extends State<Inprogress> {
+class _CompletedpageState extends State<Completedpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +46,7 @@ class _InprogressState extends State<Inprogress> {
                                 MaterialStateProperty.all<Color>(Colors.green)),
                         onPressed: () {},
                         child: const Text(
-                          '₹450',
+                          'Completed!',
                           style: TextStyle(color: Colors.white),
                         )),
                   ),
@@ -97,7 +96,7 @@ class _InprogressState extends State<Inprogress> {
                                 MaterialStateProperty.all<Color>(Colors.green)),
                         onPressed: () {},
                         child: const Text(
-                          '₹450',
+                          'Completed!',
                           style: TextStyle(color: Colors.white),
                         )),
                   ),
@@ -116,26 +115,6 @@ class _InprogressState extends State<Inprogress> {
                 ],
               ),
             ),
-            const Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Additem()));
-                    },
-                    child: const Text(
-                      'Add Items',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.green)),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:vegieapp/completedpage.dart';
-import 'package:vegieapp/inprogresspage.dart';
-import 'package:vegieapp/profilepage.dart';
+import 'package:vegieapp/pages/completedpage.dart';
+import 'package:vegieapp/pages/inprogresspage.dart';
+import 'package:vegieapp/pages/profilepage.dart';
 
 class Orderpage extends StatefulWidget {
   const Orderpage({Key? key}) : super(key: key);
@@ -162,6 +162,8 @@ class _OrderpageState extends State<Orderpage>
                                 ),
                               ),
                             ),
+                            Padding(padding: EdgeInsets.only(right: 4)),
+                            Padding(padding: EdgeInsets.only(left: 4)),
                             Expanded(
                               child: OutlinedButton(
                                 onPressed: () {

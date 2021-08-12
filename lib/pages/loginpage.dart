@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vegieapp/orderpage.dart';
-import 'package:vegieapp/registrationpage.dart';
+import 'package:vegieapp/pages/orderpage.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({Key? key}) : super(key: key);
@@ -100,27 +99,6 @@ class _LoginpageState extends State<Loginpage> {
                       ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "Haven't Registered yet??  ",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => registerpage(),
-                              ));
-                        },
-                        child: Text(
-                          "Register Here :)",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                    ],
-                  )
                 ],
               ),
             ),

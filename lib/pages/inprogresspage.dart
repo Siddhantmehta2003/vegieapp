@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:vegieapp/pages/additem.dart';
+import 'package:vegieapp/pages/cartpage.dart';
+import 'package:vegieapp/pages/orderpage.dart';
 
-import 'additem.dart';
-
-class Completedpage extends StatefulWidget {
-  const Completedpage({Key? key}) : super(key: key);
+class Inprogress extends StatefulWidget {
+  const Inprogress({Key? key}) : super(key: key);
 
   @override
-  _CompletedpageState createState() => _CompletedpageState();
+  _InprogressState createState() => _InprogressState();
 }
 
-class _CompletedpageState extends State<Completedpage> {
+class _InprogressState extends State<Inprogress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +35,10 @@ class _CompletedpageState extends State<Completedpage> {
                     ),
                   ),
                   ListTile(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Cartpage()));
+                    },
                     leading: Image.asset(
                       "assets/Photo.jpeg",
                     ),
@@ -48,7 +53,7 @@ class _CompletedpageState extends State<Completedpage> {
                                 MaterialStateProperty.all<Color>(Colors.green)),
                         onPressed: () {},
                         child: const Text(
-                          'Completed!',
+                          '₹450',
                           style: TextStyle(color: Colors.white),
                         )),
                   ),
@@ -98,7 +103,7 @@ class _CompletedpageState extends State<Completedpage> {
                                 MaterialStateProperty.all<Color>(Colors.green)),
                         onPressed: () {},
                         child: const Text(
-                          'Completed!',
+                          '₹450',
                           style: TextStyle(color: Colors.white),
                         )),
                   ),
@@ -117,6 +122,26 @@ class _CompletedpageState extends State<Completedpage> {
                 ],
               ),
             ),
+            const Spacer(),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Additem()));
+                    },
+                    child: const Text(
+                      'Add Items',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.green)),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
