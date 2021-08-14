@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vegieapp/controllers/auth_controller.dart';
 import 'package:vegieapp/pages/orderpage.dart';
 
 class Loginpage extends StatefulWidget {
@@ -9,6 +10,9 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  TextEditingController _username = new TextEditingController();
+  TextEditingController _password = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +47,7 @@ class _LoginpageState extends State<Loginpage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
+                      controller: _username,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(8),
                         hintText: "UserName",
@@ -64,6 +69,7 @@ class _LoginpageState extends State<Loginpage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
+                      controller: _password,
                       obscureText: true,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(8),
@@ -82,13 +88,27 @@ class _LoginpageState extends State<Loginpage> {
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        final username = _username.text;
+                        final password = _password.text;
+
+                        String result =
+                            await AuthController().loginCab(username, password);
+                        if (result == 'success') {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Orderpage(),
+                              ));
+                        } else if (result == 'invalid login credential') {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              content: Text('popat'),
+                            ),
+                          );
+                        }
                         //TODO: add login logic
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Orderpage(),
-                            ));
                       },
                       child: Text(
                         "Login",

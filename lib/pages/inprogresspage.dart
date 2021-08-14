@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vegieapp/pages/additem.dart';
 import 'package:vegieapp/pages/cartpage.dart';
-import 'package:vegieapp/pages/orderpage.dart';
 
 class Inprogress extends StatefulWidget {
   const Inprogress({Key? key}) : super(key: key);

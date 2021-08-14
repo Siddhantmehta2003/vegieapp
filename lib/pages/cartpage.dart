@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegieapp/pages/inprogresspage.dart';
 import 'package:vegieapp/pages/orderpage.dart';
 
 class Cartpage extends StatefulWidget {
@@ -77,7 +76,9 @@ class _CartpageState extends State<Cartpage> {
                     child: Row(
                       children: [
                         OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              launch('tel:009999999999');
+                            },
                             child: Text(
                               'Call',
                               style: TextStyle(color: Colors.white),
