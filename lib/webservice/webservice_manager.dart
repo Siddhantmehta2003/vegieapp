@@ -39,6 +39,39 @@ class WebService {
     return wsResponse;
   }
 
+// Method that handles post request with access token
+  Future<WebserviceResponse> makePostRequestToken(
+      String endpoint, var jsonMap) async {
+    WebserviceResponse wsResponse;
+    // set up POST request arguments
+    String mainUrl = baseURL + '/' + endpoint;
+
+    Map<String, String> headers = {
+      "Content-type": "application/json",
+      'Authorization': 'Bearer $token'
+    };
+    // make POST request
+    print("json body" + jsonEncode(jsonMap));
+    Response response = await post(Uri.parse(mainUrl),
+        headers: headers, body: jsonEncode(jsonMap));
+    print('response ${response.body}');
+
+    // check the status code for the result
+    // int statusCode = response.statusCode;
+    // this API passes back the id of the new item added to the body
+    String body = response.body.toString();
+    Map<dynamic, dynamic> bodyMap = jsonDecode(body);
+
+    wsResponse = new WebserviceResponse(
+      response.statusCode,
+      response.headers,
+      bodyMap,
+      bodyMap["error"] != null || bodyMap['status'] == 400,
+      bodyMap["error"] != null ? bodyMap["error"] : null,
+    );
+    return wsResponse;
+  }
+
 //Handles get request
   Future<WebserviceResponse> makeGetRequest(String endpoint) async {
     WebserviceResponse wsResponse;

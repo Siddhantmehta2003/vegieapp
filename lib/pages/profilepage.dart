@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vegieapp/pages/loginpage.dart';
 import 'package:vegieapp/pages/orderpage.dart';
 
@@ -69,7 +70,10 @@ class _ProfilepageState extends State<Profilepage> {
               children: [
                 Expanded(
                   child: OutlinedButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
+                      SharedPreferences _pref =
+                          await SharedPreferences.getInstance();
+                      await _pref.remove('token');
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Loginpage()));
                     },

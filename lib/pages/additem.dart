@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vegieapp/Models/product.dart';
+import 'package:vegieapp/Models/product_modal.dart';
+import 'package:vegieapp/controllers/orderscontroller.dart';
 
 import 'package:vegieapp/pages/orderpage.dart';
 
@@ -12,8 +15,50 @@ class Additem extends StatefulWidget {
 }
 
 class _AdditemState extends State<Additem> {
+  List<Product>? products;
+  int quantity = 1;
+  TextEditingController priceController = TextEditingController();
+  fetchProducts() async {
+    products = await OrderController().getAllProducts();
+    productNames = products!.map((e) => e.productName!).toList();
+    selectedProduct = products![0];
+
+    setState(() {});
+  }
+
+  List<String>? productNames;
+  Product? selectedProduct;
+
+  @override
+  void initState() {
+    fetchProducts();
+    super.initState();
+  }
+
+  int price = 0;
+  ProductDetail? product;
+  fetchProductDetail() async {
+    if (selectedProduct == null) {
+      return;
+    }
+    try {
+      product =
+          await OrderController().getProductDetails(selectedProduct!.productId);
+      if (product!.price!.length == 0) {
+        return;
+      }
+      print(product!.price![0].productPrice);
+      price = product!.price![0].productPrice! * quantity;
+      priceController.text = price.toString();
+      setState(() {});
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    fetchProductDetail();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -59,16 +104,22 @@ class _AdditemState extends State<Additem> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          DropdownButton<String>(
-                            items: <String>['A', 'B', 'C', 'D']
-                                .map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: new Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (_) {},
-                          ),
+                          productNames == null
+                              ? Container()
+                              : DropdownButton<Product>(
+                                  value: selectedProduct,
+                                  items: products!.map((Product value) {
+                                    return DropdownMenuItem<Product>(
+                                      value: value,
+                                      child: new Text(value.productName!),
+                                    );
+                                  }).toList(),
+                                  onChanged: (_) {
+                                    selectedProduct = _;
+                                    fetchProductDetail();
+                                    setState(() {});
+                                  },
+                                ),
                         ],
                       ),
                     )
@@ -93,15 +144,19 @@ class _AdditemState extends State<Additem> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          DropdownButton<String>(
-                            items: <String>['1', '2', '3', '4']
-                                .map((String value) {
-                              return DropdownMenuItem<String>(
+                          DropdownButton<int>(
+                            value: quantity,
+                            items: <int>[1, 2, 3, 4, 5, 6].map((int value) {
+                              return DropdownMenuItem<int>(
                                 value: value,
-                                child: new Text(value),
+                                child: new Text(value.toString()),
                               );
                             }).toList(),
-                            onChanged: (_) {},
+                            onChanged: (_) {
+                              quantity = _!;
+                              fetchProductDetail();
+                              setState(() {});
+                            },
                           ),
                         ],
                       ),
@@ -126,6 +181,7 @@ class _AdditemState extends State<Additem> {
                       padding:
                           const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                       child: TextField(
+                        controller: priceController,
                         readOnly: true,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(), hintText: 'Price'),

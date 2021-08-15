@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vegieapp/Constants.dart';
 import 'package:vegieapp/webservice/webservice_manager.dart';
 import 'package:vegieapp/webservice/webservice_response.dart';
 
@@ -15,6 +16,7 @@ class AuthController {
       if (wsmResponse.responseBody['status'] == 'success') {
         //save auth token
         _pref.setString('token', wsmResponse.responseBody['token']);
+        token = wsmResponse.responseBody['token'];
       }
 
       return wsmResponse.responseBody['status'];

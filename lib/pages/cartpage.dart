@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegieapp/Models/product.dart';
+import 'package:vegieapp/controllers/orderscontroller.dart';
 import 'package:vegieapp/pages/orderpage.dart';
 
 class Cartpage extends StatefulWidget {
-  const Cartpage({Key? key}) : super(key: key);
-
+  Cartpage({Key? key, required this.productid}) : super(key: key);
+  int productid;
   @override
   _CartpageState createState() => _CartpageState();
 }
 
 class _CartpageState extends State<Cartpage> {
+  ProductDetail? product;
+  fetchProductDetail() async {
+    try {
+      product = await OrderController().getProductDetails(widget.productid);
+      setState(() {});
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    fetchProductDetail();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +35,7 @@ class _CartpageState extends State<Cartpage> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'New Orders',
+          'Order Details',
           style: TextStyle(color: Colors.green),
         ),
         leading: IconButton(
@@ -37,173 +55,121 @@ class _CartpageState extends State<Cartpage> {
               ))
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Card(
+      body: product == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: const [
-                        Text(
-                          'Order no #1190',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                  Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Order no #${product!.productId}',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ListTile(
+                          onTap: () {},
+                          leading: Icon(Icons.person),
+                          title: Text(
+                            '${product!.categoryName}',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              OutlinedButton(
+                                  onPressed: () {
+                                    launch('tel:${product}');
+                                  },
+                                  child: Text(
+                                    'Call',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.green),
+                                  )),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 4, right: 4)),
+                              OutlinedButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Navigate',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.green),
+                                  ))
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  ListTile(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Cartpage()));
-                    },
-                    leading: Image.asset(
-                      "assets/Photo.jpeg",
-                    ),
-                    title: const Text(
-                      'Siddhant Mehta',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: const Text('Delhi NCR'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
+                  Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        OutlinedButton(
+                        ListTile(
+                          onTap: () {},
+                          leading: Image.asset(
+                            "assets/Photo.jpeg",
+                          ),
+                          title: const Text(
+                            'Garlic',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: const Text('Rs. 190/kg'),
+                          trailing: Text(
+                            '2 KG',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
                             onPressed: () {
-                              launch('tel:009999999999');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Orderpage()));
                             },
                             child: Text(
-                              'Call',
+                              'Confirm delivery',
                               style: TextStyle(color: Colors.white),
                             ),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.green),
                             )),
-                        Padding(padding: EdgeInsets.only(left: 4, right: 4)),
-                        OutlinedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Navigate',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.green),
-                            ))
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Cartpage()));
-                    },
-                    leading: Image.asset(
-                      "assets/Photo.jpeg",
-                    ),
-                    title: const Text(
-                      'Garlic',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: const Text('Rs. 190/kg'),
-                    trailing: Text(
-                      '2 KG',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Cartpage()));
-                    },
-                    leading: Image.asset(
-                      "assets/Photo.jpeg",
-                    ),
-                    title: const Text(
-                      'Brocli',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: const Text('Rs. 80/kg'),
-                    trailing: Text(
-                      '1 KG',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Cartpage()));
-                    },
-                    leading: Image.asset(
-                      "assets/Photo.jpeg",
-                    ),
-                    title: const Text(
-                      'Brinjals',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: const Text('Rs. 100/kg'),
-                    trailing: Text(
-                      '3 KG',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Orderpage()));
-                      },
-                      child: Text(
-                        'Confirm delivery',
-                        style: TextStyle(color: Colors.white),
                       ),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.green),
-                      )),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
     );
   }
 }

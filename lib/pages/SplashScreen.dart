@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vegieapp/Constants.dart';
 import 'package:vegieapp/pages/loginpage.dart';
 import 'package:vegieapp/pages/orderpage.dart';
 
@@ -11,13 +12,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String? token;
+  String? ctoken;
   checkLogin() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
 
-    token = _pref.getString('token');
-    print(token);
-    if (token != null) {
+    ctoken = _pref.getString('token');
+    print(ctoken);
+    if (ctoken != null) {
+      token = ctoken;
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

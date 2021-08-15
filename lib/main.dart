@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vegieapp/pages/SplashScreen.dart';
-import 'package:vegieapp/pages/orderpage.dart';
 
 void main() {
   runApp(const MyApp());
