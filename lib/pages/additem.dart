@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vegieapp/Models/product.dart';
 import 'package:vegieapp/Models/product_modal.dart';
 import 'package:vegieapp/controllers/orderscontroller.dart';
+import 'package:vegieapp/pages/cartpage.dart';
 
 import 'package:vegieapp/pages/orderpage.dart';
 
@@ -127,6 +128,7 @@ class _AdditemState extends State<Additem> {
                 ),
               ),
             ),
+            // product id save => photo display as per product id.
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
@@ -198,7 +200,10 @@ class _AdditemState extends State<Additem> {
                 children: [
                   Expanded(
                       child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Cartpage()));
+                      // navigate to Cartpage().
+                    },
                     child: Text(
                       'Add',
                       style: TextStyle(color: Colors.white),

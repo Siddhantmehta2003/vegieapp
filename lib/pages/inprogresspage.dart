@@ -50,28 +50,8 @@ class _InprogressState extends State<Inprogress> {
                         itemBuilder: (context, index) =>
                             inprogressCard(order: orders![index]),
                       ),
-                      // const Spacer(),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: OutlinedButton(
-                      //         onPressed: () {
-                      //           Navigator.push(
-                      //               context,
-                      //               MaterialPageRoute(
-                      //                   builder: (context) => Additem()));
-                      //         },
-                      //         child: const Text(
-                      //           'Add Items',
-                      //           style: TextStyle(color: Colors.white),
-                      //         ),
-                      //         style: ButtonStyle(
-                      //             backgroundColor: MaterialStateProperty.all<Color>(
-                      //                 Colors.green)),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // )
+                      // in progress => take id from from order.
+                      // prduct name and product id both save.
                     ],
                   ),
                 ),

@@ -4,6 +4,8 @@ import 'package:vegieapp/Models/product.dart';
 import 'package:vegieapp/controllers/orderscontroller.dart';
 import 'package:vegieapp/pages/orderpage.dart';
 
+import 'additem.dart';
+
 class Cartpage extends StatefulWidget {
   Cartpage({Key? key, required this.productid}) : super(key: key);
   int productid;
@@ -146,6 +148,27 @@ class _CartpageState extends State<Cartpage> {
                     ),
                   ),
                   const Spacer(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Additem()));
+                          },
+                          child: const Text(
+                            'Add Items',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.green)),
+                        ),
+                      ),
+                    ],
+                  ),
                   Row(
                     children: [
                       Expanded(
