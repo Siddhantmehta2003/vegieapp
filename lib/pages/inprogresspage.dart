@@ -50,28 +50,29 @@ class _InprogressState extends State<Inprogress> {
                         itemBuilder: (context, index) =>
                             inprogressCard(order: orders![index]),
                       ),
-                      // const Spacer(),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: OutlinedButton(
-                      //         onPressed: () {
-                      //           Navigator.push(
-                      //               context,
-                      //               MaterialPageRoute(
-                      //                   builder: (context) => Additem()));
-                      //         },
-                      //         child: const Text(
-                      //           'Add Items',
-                      //           style: TextStyle(color: Colors.white),
-                      //         ),
-                      //         style: ButtonStyle(
-                      //             backgroundColor: MaterialStateProperty.all<Color>(
-                      //                 Colors.green)),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // )
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Additem()));
+                              },
+                              child: const Text(
+                                'Add Items',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.green)),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -131,6 +132,7 @@ class _inprogressCardState extends State<inprogressCard> {
                   MaterialPageRoute(
                       builder: (context) => Cartpage(
                             productid: product!.productId!,
+                            order: widget.order,
                           )));
             },
             leading: Icon(Icons.person),

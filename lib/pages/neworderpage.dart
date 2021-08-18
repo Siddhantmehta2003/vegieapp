@@ -87,33 +87,108 @@ class _NewOrderPageState extends State<NewOrderPage> {
                               children: [
                                 Expanded(
                                   child: OutlinedButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                                'You have rejected the order!'),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text(
-                                                    'OK!',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(
-                                                                Colors.green),
-                                                  ))
-                                            ],
+                                    onPressed: () async {
+                                      WebService wsm = WebService();
+                                      try {
+                                        WebserviceResponse response =
+                                            await wsm.makePostRequestToken(
+                                          'cab/neworders',
+                                          {
+                                            "cab_order_id":
+                                                orders![index].cabOrderId,
+                                            'cab_order_status': "4"
+                                          },
+                                        );
+                                        final status =
+                                            response.responseBody['status'];
+                                        if (status == 'success') {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'You have rejected the order!'),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        'OK!',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all<Color>(
+                                                                    Colors
+                                                                        .green),
+                                                      ))
+                                                ],
+                                              );
+                                            },
                                           );
-                                        },
-                                      );
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'Failed to reject order. please try again'),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        'OK!',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all<Color>(
+                                                                    Colors
+                                                                        .green),
+                                                      ))
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                        fetchOrders();
+                                      } catch (e) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                  'Failed to reject order. please try again'),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text(
+                                                      'OK!',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all<Color>(
+                                                                  Colors.green),
+                                                    ))
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
                                     },
                                     child: const Text(
                                       'Reject',
@@ -142,7 +217,8 @@ class _NewOrderPageState extends State<NewOrderPage> {
                                           'cab/neworders',
                                           {
                                             "cab_order_id":
-                                                orders![index].cabOrderId
+                                                orders![index].cabOrderId,
+                                            'cab_order_status': "1"
                                           },
                                         );
                                         final status =
@@ -206,6 +282,7 @@ class _NewOrderPageState extends State<NewOrderPage> {
                                             },
                                           );
                                         }
+                                        fetchOrders();
                                       } catch (e) {
                                         await showDialog(
                                           context: context,

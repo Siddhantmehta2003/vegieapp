@@ -16,15 +16,18 @@ class Additem extends StatefulWidget {
 
 class _AdditemState extends State<Additem> {
   List<Product>? products;
+
   int quantity = 1;
   TextEditingController priceController = TextEditingController();
   fetchProducts() async {
     products = await OrderController().getAllProducts();
     productNames = products!.map((e) => e.productName!).toList();
     selectedProduct = products![0];
-
+    fetchProductDetail();
     setState(() {});
   }
+
+  Price? selectedPrice;
 
   List<String>? productNames;
   Product? selectedProduct;
@@ -44,11 +47,13 @@ class _AdditemState extends State<Additem> {
     try {
       product =
           await OrderController().getProductDetails(selectedProduct!.productId);
-      if (product!.price!.length == 0) {
+      if (product!.price == null || product!.price!.length == 0) {
         return;
       }
+      selectedPrice = product!.price![0];
+
       print(product!.price![0].productPrice);
-      price = product!.price![0].productPrice! * quantity;
+      price = selectedPrice!.productPrice! * quantity;
       priceController.text = price.toString();
       setState(() {});
     } catch (e) {
@@ -58,7 +63,6 @@ class _AdditemState extends State<Additem> {
 
   @override
   Widget build(BuildContext context) {
-    fetchProductDetail();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -158,6 +162,25 @@ class _AdditemState extends State<Additem> {
                               setState(() {});
                             },
                           ),
+                          if (product != null && selectedPrice != null)
+                            DropdownButton<Price>(
+                              value: selectedPrice,
+                              items: product!.price!.map((Price value) {
+                                return DropdownMenuItem<Price>(
+                                  value: value,
+                                  child:
+                                      new Text(value.priceUnitName.toString()),
+                                );
+                              }).toList(),
+                              onChanged: (_) {
+                                selectedPrice = _!;
+                                price = selectedPrice!.productPrice! * quantity;
+                                priceController.text = price.toString();
+                                // setState(() {});
+                                // fetchProductDetail();
+                                setState(() {});
+                              },
+                            ),
                         ],
                       ),
                     )
