@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegieapp/Models/order.dart';
 import 'package:vegieapp/Models/product.dart';
 import 'package:vegieapp/controllers/orderscontroller.dart';
 import 'package:vegieapp/pages/orderpage.dart';
@@ -7,14 +8,17 @@ import 'package:vegieapp/pages/orderpage.dart';
 import 'additem.dart';
 
 class Cartpage extends StatefulWidget {
-  Cartpage({Key? key, required this.productid}) : super(key: key);
+  Cartpage({Key? key, required this.productid, required this.order})
+      : super(key: key);
   int productid;
+  final Order order;
   @override
   _CartpageState createState() => _CartpageState();
 }
 
 class _CartpageState extends State<Cartpage> {
   ProductDetail? product;
+  List<ProductDetail> products = [];
   fetchProductDetail() async {
     try {
       product = await OrderController().getProductDetails(widget.productid);
@@ -74,7 +78,7 @@ class _CartpageState extends State<Cartpage> {
                           child: Row(
                             children: [
                               Text(
-                                'Order no #${product!.productId}',
+                                'Order no #${widget.order.cabOrderId}',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -85,7 +89,7 @@ class _CartpageState extends State<Cartpage> {
                           onTap: () {},
                           leading: Icon(Icons.person),
                           title: Text(
-                            '${product!.categoryName}',
+                            '${widget.order.userName}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -95,7 +99,7 @@ class _CartpageState extends State<Cartpage> {
                             children: [
                               OutlinedButton(
                                   onPressed: () {
-                                    launch('tel:${product}');
+                                    launch('tel:${widget.order.userPhone}');
                                   },
                                   child: Text(
                                     'Call',
@@ -108,17 +112,17 @@ class _CartpageState extends State<Cartpage> {
                                   )),
                               Padding(
                                   padding: EdgeInsets.only(left: 4, right: 4)),
-                              OutlinedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Navigate',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.green),
-                                  ))
+                              // OutlinedButton(
+                              //     onPressed: () {},
+                              //     child: Text(
+                              //       'Navigate',
+                              //       style: TextStyle(color: Colors.white),
+                              //     ),
+                              //     style: ButtonStyle(
+                              //       backgroundColor:
+                              //           MaterialStateProperty.all<Color>(
+                              //               Colors.green),
+                              //     ))
                             ],
                           ),
                         ),
