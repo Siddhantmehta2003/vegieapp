@@ -161,6 +161,7 @@ class _NewOrderPageState extends State<NewOrderPage> {
                                           );
                                         }
                                         fetchOrders();
+                                        print('haga kuch ');
                                       } catch (e) {
                                         await showDialog(
                                           context: context,
@@ -221,6 +222,7 @@ class _NewOrderPageState extends State<NewOrderPage> {
                                             'cab_order_status': "1"
                                           },
                                         );
+                                        print('yaha tak ho gaya!');
                                         final status =
                                             response.responseBody['status'];
                                         if (status == 'success') {

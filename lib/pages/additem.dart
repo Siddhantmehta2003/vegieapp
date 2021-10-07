@@ -224,7 +224,7 @@ class _AdditemState extends State<Additem> {
                   Expanded(
                       child: OutlinedButton(
                     onPressed: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Cartpage()));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Cartpage(order: (), productid: (),)));
                       // navigate to Cartpage().
                     },
                     child: Text(

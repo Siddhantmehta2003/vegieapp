@@ -50,7 +50,7 @@ class _InprogressState extends State<Inprogress> {
                         itemBuilder: (context, index) =>
                             inprogressCard(order: orders![index]),
                       ),
-                      const Spacer(),
+                      /* const Spacer(),
                       Row(
                         children: [
                           Expanded(
@@ -72,7 +72,7 @@ class _InprogressState extends State<Inprogress> {
                             ),
                           ),
                         ],
-                      )
+                      ) */
                     ],
                   ),
                 ),

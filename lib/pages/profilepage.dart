@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vegieapp/pages/changepassword.dart';
 import 'package:vegieapp/pages/loginpage.dart';
 import 'package:vegieapp/pages/orderpage.dart';
 
@@ -61,7 +62,12 @@ class _ProfilepageState extends State<Profilepage> {
               child: ListTile(
                 title: const Text('Change Password'),
                 trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChangePass()));
+                    },
                     icon: const Icon(Icons.arrow_forward_ios)),
               ),
             ),
